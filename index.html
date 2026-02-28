@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ms">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday Wawa 🖤 — 23.12.2026</title>
+    <meta name="description" content="Ucapan istimewa untuk Wawa daripada Muhammad Syafizam — 23.12.2026" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@600;700&display=swap"
+        rel="stylesheet" />
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+
+    <!-- Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+    <!-- VanillaTilt -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- ═══════════════ CANVAS PARTICLES ═══════════════ -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- ═══════════════ CURSOR ═══════════════ -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- ═══════════════ PETALS ═══════════════ -->
+    <div class="petals-wrap" id="petalsWrap"></div>
+
+    <!-- ═══════════════ PRELOADER ═══════════════ -->
+    <div id="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-heart">🖤</div>
+            <div class="preloader-text">Loading something special...</div>
+            <div class="preloader-bar">
+                <div class="preloader-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════ MUSIC PLAYER ═══════════════ -->
+    <div class="music-player" id="musicPlayer">
+        <audio id="bgAudio" loop>
+            <source src="audio/background.mp3" type="audio/mpeg" />
+        </audio>
+        <button class="music-btn" id="musicBtn" title="Play / Pause Music">
+            <span class="music-icon" id="musicIcon">♪</span>
+            <span class="music-label">Music</span>
+        </button>
+        <div class="music-visualizer">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+    </div>
+
+    <!-- ═══════════════ NAV ═══════════════ -->
+    <nav class="nav" id="mainNav">
+        <div class="nav-logo">🖤 Wawa</div>
+        <ul class="nav-links">
+            <li><a href="#countdown">Countdown</a></li>
+            <li><a href="#story">Story</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#message">Mesej</a></li>
+            <li><a href="#surprise">Surprise</a></li>
+        </ul>
+    </nav>
+
+    <!-- ═══════════════ HERO ═══════════════ -->
+    <section class="hero" id="hero">
+        <div class="hero-bg-text">BIRTHDAY</div>
+        <div class="hero-content">
+            <p class="hero-pre" id="heroPreText"></p>
+            <h1 class="hero-title">
+                <span class="hero-line-1">Happy Birthday,</span>
+                <span class="hero-line-2 glitch" data-text="Wawa">Wawa</span>
+            </h1>
+            <p class="hero-date">23 · 12 · 2026</p>
+            <div class="hero-scroll-hint">
+                <span>Scroll Down</span>
+                <div class="scroll-arrow"></div>
+            </div>
+        </div>
+
+        <!-- Floating hearts -->
+        <div class="floating-hearts" id="floatingHearts"></div>
+    </section>
+
+    <!-- ═══════════════ COUNTDOWN ═══════════════ -->
+    <section class="countdown-section" id="countdown">
+        <div class="section-label">⏳ Time Remaining</div>
+        <h2 class="section-title">The Big Day Is Coming</h2>
+        <p class="section-sub">Counting every second until 23 December 2026</p>
+
+        <div class="countdown-grid" id="countdownGrid">
+            <div class="count-box" id="cd-days">
+                <div class="count-number" id="days">000</div>
+                <div class="count-label">Days</div>
+                <div class="count-ring"></div>
+            </div>
+            <div class="count-sep">:</div>
+            <div class="count-box" id="cd-hours">
+                <div class="count-number" id="hours">00</div>
+                <div class="count-label">Hours</div>
+                <div class="count-ring"></div>
+            </div>
+            <div class="count-sep">:</div>
+            <div class="count-box" id="cd-minutes">
+                <div class="count-number" id="minutes">00</div>
+                <div class="count-label">Minutes</div>
+                <div class="count-ring"></div>
+            </div>
+            <div class="count-sep">:</div>
+            <div class="count-box" id="cd-seconds">
+                <div class="count-number" id="seconds">00</div>
+                <div class="count-label">Seconds</div>
+                <div class="count-ring"></div>
+            </div>
+        </div>
+
+        <div class="countdown-progress-wrap">
+            <div class="countdown-progress-bar" id="progressBar"></div>
+            <span class="countdown-progress-label" id="progressLabel">0% complete</span>
+        </div>
+
+        <!-- Birthday mode banner (shown when it IS the birthday) -->
+        <div class="birthday-banner hidden" id="birthdayBanner">
+            <h2>🎉 Selamat Hari Lahir, Wawa! 🎉</h2>
+            <p>Hari yang paling istimewa telah tiba! 🖤</p>
+        </div>
+    </section>
+
+    <!-- ═══════════════ OUR STORY TIMELINE ═══════════════ -->
+    <section class="timeline-section" id="story">
+        <div class="section-label">✦ Perjalanan Kita</div>
+        <h2 class="section-title">Our Story</h2>
+        <p class="section-sub">Momen-momen istimewa yang membentuk kita 🖤</p>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot">✦</div>
+                <div class="timeline-card">
+                    <div class="t-date">Permulaan</div>
+                    <h3 class="t-title">Saat Pertama Kali</h3>
+                    <p class="t-text">Masa pertama kali aku perasan kewujudan Wawa... dan dunia terasa berbeza.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot">🖤</div>
+                <div class="timeline-card">
+                    <div class="t-date">Kenangan</div>
+                    <h3 class="t-title">Senyuman Itu</h3>
+                    <p class="t-text">Senyuman Wawa yang membuatkan hari-hariku lebih bermakna.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot">★</div>
+                <div class="timeline-card">
+                    <div class="t-date">Setiap Hari</div>
+                    <h3 class="t-title">Dalam Diam</h3>
+                    <p class="t-text">Dari jauh, aku sentiasa doakan yang terbaik untuk Wawa.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot">✨</div>
+                <div class="timeline-card">
+                    <div class="t-date">23.12.2026</div>
+                    <h3 class="t-title">Hari Istimewa</h3>
+                    <p class="t-text">Hari lahir Wawa — hari yang aku nantikan untuk ucapkan sesuatu yang bermakna.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot">∞</div>
+                <div class="timeline-card">
+                    <div class="t-date">Selama-lamanya</div>
+                    <h3 class="t-title">Harapan Aku</h3>
+                    <p class="t-text">Semoga Wawa sentiasa bahagia, di mana sahaja Wawa berada. 🖤</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════ GALLERY ═══════════════ -->
+    <section class="gallery-section" id="gallery">
+        <div class="section-label">📸 Kenangan</div>
+        <h2 class="section-title">Our Moments</h2>
+        <p class="section-sub">Kenangan indah yang akan sentiasa diingati 🖤</p>
+
+        <div class="gallery-masonry" id="galleryGrid">
+            <!-- Photo slots generated by JS -->
+        </div>
+    </section>
+
+    <!-- ═══════════════ MESSAGE ═══════════════ -->
+    <section class="message-section" id="message">
+        <div class="message-card">
+            <div class="message-deco-top"></div>
+            <div class="section-label">💌 From the Heart</div>
+            <h2 class="section-title message-title">A Little Note For You</h2>
+            <div class="message-body" id="messageBody">
+                <p class="message-line" data-delay="0">Wawa, setiap hari yang berlalu adalah satu hari lebih dekat
+                    kepadamu.</p>
+                <p class="message-line" data-delay="0.2">Kau menjadikan setiap perkara biasa terasa seperti mimpi indah.
+                </p>
+                <p class="message-line" data-delay="0.4">Pada hari istimewamu ini, aku hanya ingin kau tahu...</p>
+                <p class="message-line highlight" data-delay="0.6">Kau adalah segalanya dan lebih dari itu. 🖤</p>
+            </div>
+            <div class="message-sig">— Muhammad Syafizam</div>
+            <div class="message-deco-bottom"></div>
+        </div>
+    </section>
+
+    <!-- ═══════════════ SURPRISE ═══════════════ -->
+    <section class="surprise-section" id="surprise">
+        <div class="section-label">🎁 Surprise</div>
+        <h2 class="section-title">Ready for a Surprise?</h2>
+        <p class="section-sub">Click the button below 🖤</p>
+
+        <div class="surprise-btn-wrap">
+            <button class="surprise-btn" id="surpriseBtn">
+                <span class="surprise-btn-text">Open Gift</span>
+                <span class="surprise-btn-icon">🎁</span>
+            </button>
+        </div>
+
+        <!-- Hidden gift message revealed on click -->
+        <div class="gift-reveal hidden" id="giftReveal">
+            <div class="gift-stars" id="giftStars"></div>
+            <div class="gift-card">
+                <div class="gift-emoji">🖤</div>
+                <h3>Selamat Hari Lahir, Wawa 🖤</h3>
+                <p>Semoga setiap detik hari istimewa ini dipenuhi dengan kebahagiaan, senyuman, dan segala yang Wawa
+                    impikan.</p>
+                <p class="gift-sub">— Daripada Muhammad Syafizam · 23.12.2026 —</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════ FOOTER ═══════════════ -->
+    <footer class="site-footer">
+        <div class="footer-heart" id="footerHeart">🖤</div>
+        <p>Daripada Muhammad Syafizam · untuk Wawa 🖤 · 23.12.2026</p>
+        <p class="footer-tiny">Klik mana-mana untuk keajaiban ✨</p>
+    </footer>
+
+    <!-- Click sparkle container -->
+    <div id="sparkleContainer"></div>
+
+    <!-- Lightbox -->
+    <div class="lightbox hidden" id="lightbox">
+        <div class="lightbox-overlay" id="lightboxOverlay"></div>
+        <div class="lightbox-content">
+            <img src="" alt="Photo" id="lightboxImg" />
+            <button class="lightbox-close" id="lightboxClose">✕</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
